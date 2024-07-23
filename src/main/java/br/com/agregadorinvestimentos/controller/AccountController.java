@@ -3,6 +3,7 @@ package br.com.agregadorinvestimentos.controller;
 import br.com.agregadorinvestimentos.dtos.AccountStocksResponseDTO;
 import br.com.agregadorinvestimentos.dtos.AssociateAccountDTO;
 import br.com.agregadorinvestimentos.service.AccountService;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ public class AccountController {
     }
 
     @PostMapping("/{accountId}/stocks")
+    @Transactional
     public ResponseEntity<Void> associateStock (@PathVariable("accountId") String accountId,
                                                 @RequestBody AssociateAccountDTO data) {
         System.out.println(accountId);

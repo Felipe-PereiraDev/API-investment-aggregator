@@ -3,6 +3,7 @@ import br.com.agregadorinvestimentos.dtos.*;
 import br.com.agregadorinvestimentos.entities.User;
 import br.com.agregadorinvestimentos.service.UserService;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class UserController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<User> createUser (@RequestBody CreateUserDTO dataUser) {
+    public ResponseEntity<User> createUser (@RequestBody @Valid CreateUserDTO dataUser) {
         var user_id = userService.createUser(dataUser);
         return ResponseEntity.created(URI.create("/users/" + user_id.toString())).build();
     }
@@ -43,6 +44,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
+    @Transactional
     public ResponseEntity<Void> updateUser (@PathVariable("userId") String userId,
                                             @RequestBody UpdateUserDTO data) {
         userService.updateUserById(userId, data);
@@ -63,7 +65,7 @@ public class UserController {
     @PostMapping("/{userId}/accounts")
     @Transactional
     public ResponseEntity<Void> createAccount (@PathVariable("userId") String userId,
-                                            @RequestBody CreateAccountDTO data) {
+                                            @RequestBody @Valid CreateAccountDTO data) {
         userService.createAccount(userId, data);
         return ResponseEntity.ok().build();
     }

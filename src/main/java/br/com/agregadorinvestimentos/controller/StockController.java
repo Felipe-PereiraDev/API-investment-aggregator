@@ -3,10 +3,10 @@ package br.com.agregadorinvestimentos.controller;
 import br.com.agregadorinvestimentos.dtos.CreateStockDTO;
 import br.com.agregadorinvestimentos.dtos.PageStocksDTO;
 import br.com.agregadorinvestimentos.service.StockService;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/stocks")
@@ -24,7 +24,8 @@ public class StockController {
 
     }
     @PostMapping
-    public ResponseEntity<Void> createStock (@RequestBody CreateStockDTO data) {
+    @Transactional
+    public ResponseEntity<Void> createStock (@RequestBody @Valid CreateStockDTO data) {
         stockService.createStock(data);
         return ResponseEntity.ok().build();
     }
