@@ -58,6 +58,9 @@ $ ./mvnw clean package
 ```
 $ java -jar target/agregadorinvestimentos-0.0.1-SNAPSHOT.jar
 ```
+### Versões ultilizadas
+- Java: 21.0.4
+- Maven: 3.9.8
 
 A API poderá ser acessada em [localhost:8080](http://localhost:8080).
 
